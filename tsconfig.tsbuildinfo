@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/components/fitscore.tsx","./src/components/jobcard.tsx","./src/components/jobdetail.tsx","./src/components/jobspage.tsx","./src/components/sidebar.tsx","./src/data/jobs.ts","./src/data/profile.ts","./src/utils/fitscore.ts"],"version":"5.9.3"}
