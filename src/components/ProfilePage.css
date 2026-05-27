@@ -1,0 +1,158 @@
+.profile-page {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 28px 40px;
+  max-width: 720px;
+}
+
+.profile-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.profile-subtitle {
+  color: #555;
+  font-size: 14px;
+  margin: 0 0 24px;
+}
+
+.profile-completeness {
+  background: #f7fce8;
+  border: 1px solid #e5f0c8;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 28px;
+}
+
+.completeness-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.completeness-bar {
+  height: 8px;
+  background: #e8e8e8;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.completeness-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #d3fb52, #a8e635);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.completeness-hint {
+  font-size: 12px;
+  color: #555;
+  margin: 10px 0 0;
+}
+
+.profile-section {
+  margin-bottom: 28px;
+}
+
+.profile-section h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+.section-desc {
+  font-size: 13px;
+  color: #666;
+  margin: -6px 0 14px;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.profile-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+}
+
+.field-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: #888;
+}
+
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-chip {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 100px;
+}
+
+.skill-chip--owned {
+  background: #e8f8ef;
+  color: #1a7f4b;
+  border: 1px solid #b8e8cc;
+}
+
+.skill-chip--interest {
+  background: #e8f0fe;
+  color: #3d5a99;
+  border: 1px solid #c5d8fc;
+}
+
+.suggestion-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+
+.suggestion-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.suggestion-info strong {
+  font-size: 14px;
+}
+
+.suggestion-info span {
+  font-size: 12px;
+  color: #666;
+}
+
+.btn-add-skill {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #1a1a1a;
+  background: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-add-skill:hover {
+  background: #f7fce8;
+}

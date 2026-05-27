@@ -18,6 +18,7 @@ export interface Job {
   benefits: string[];
   applicants: number;
   promoted?: boolean;
+  applicationDeadline: string;
 }
 
 export const jobs: Job[] = [
@@ -46,6 +47,7 @@ export const jobs: Job[] = [
     benefits: ["Housing stipend", "Mentorship program", "Return offer pathway"],
     applicants: 342,
     promoted: true,
+    applicationDeadline: "2026-06-15",
   },
   {
     id: "2",
@@ -70,6 +72,7 @@ export const jobs: Job[] = [
     ],
     benefits: ["Health insurance", "401(k) match", "Professional development"],
     applicants: 891,
+    applicationDeadline: "2026-06-01",
   },
   {
     id: "3",
@@ -95,6 +98,7 @@ export const jobs: Job[] = [
     benefits: ["Remote-first culture", "Learning stipend", "Free Notion plan"],
     applicants: 156,
     promoted: true,
+    applicationDeadline: "2026-06-20",
   },
   {
     id: "4",
@@ -120,6 +124,7 @@ export const jobs: Job[] = [
     ],
     benefits: ["Equity", "Health & wellness", "Unlimited PTO"],
     applicants: 2104,
+    applicationDeadline: "2026-05-30",
   },
   {
     id: "5",
@@ -144,6 +149,7 @@ export const jobs: Job[] = [
     ],
     benefits: ["Design mentorship", "Free Figma", "Team offsites"],
     applicants: 428,
+    applicationDeadline: "2026-06-10",
   },
   {
     id: "6",
@@ -168,5 +174,6 @@ export const jobs: Job[] = [
     ],
     benefits: ["Travel opportunities", "Case prep training", "Full-time pipeline"],
     applicants: 1203,
+    applicationDeadline: "2026-05-28",
   },
 ];

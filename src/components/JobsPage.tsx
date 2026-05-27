@@ -1,24 +1,43 @@
 import { useMemo, useState } from "react";
 import { jobs } from "../data/jobs";
-import { studentProfile } from "../data/profile";
+import { useApp } from "../context/AppContext";
 import { calculateFit } from "../utils/fitScore";
+import { getWhySeeingThis, getDuplicateWarning } from "../utils/fitInsights";
 import { JobCard } from "./JobCard";
 import { JobDetail } from "./JobDetail";
 import "./JobsPage.css";
 
 const filters = ["All filters", "Job type", "Location", "Remote", "Internship", "Pay"];
+const MIN_FIT_DEFAULT = 60;
+
+const STATUS_LABELS: Record<string, string> = {
+  saved: "Saved",
+  applied: "Applied",
+  under_review: "Reviewing",
+  interview: "Interview",
+  offer: "Offer",
+  rejected: "Rejected",
+};
 
 export function JobsPage() {
+  const { profile, applications } = useApp();
   const [selectedId, setSelectedId] = useState(jobs[0]?.id ?? "");
   const [search, setSearch] = useState("");
   const [sortByFit, setSortByFit] = useState(true);
+  const [hideLowFit, setHideLowFit] = useState(true);
+  const [minFit, setMinFit] = useState(MIN_FIT_DEFAULT);
 
   const jobsWithFit = useMemo(() => {
-    return jobs.map((job) => ({
-      job,
-      fit: calculateFit(job, studentProfile),
-    }));
-  }, []);
+    return jobs.map((job) => {
+      const fit = calculateFit(job, profile);
+      return {
+        job,
+        fit,
+        whySeeing: getWhySeeingThis(job, profile),
+        duplicateWarning: getDuplicateWarning(job, applications),
+      };
+    });
+  }, [profile, applications]);
 
   const filtered = useMemo(() => {
     let list = jobsWithFit;
@@ -30,20 +49,27 @@ export function JobsPage() {
           job.employer.toLowerCase().includes(q)
       );
     }
+    if (hideLowFit) {
+      list = list.filter(({ fit }) => fit.overall >= minFit);
+    }
     if (sortByFit) {
       list = [...list].sort((a, b) => b.fit.overall - a.fit.overall);
     }
     return list;
-  }, [jobsWithFit, search, sortByFit]);
+  }, [jobsWithFit, search, sortByFit, hideLowFit, minFit]);
 
-  const selected = filtered.find(({ job }) => job.id === selectedId) ?? filtered[0];
+  const selected =
+    filtered.find(({ job }) => job.id === selectedId) ?? filtered[0];
+
+  const matchCount = jobsWithFit.filter(({ fit }) => fit.overall >= minFit).length;
 
   return (
     <div className="jobs-page">
       <header className="jobs-header">
         <h1>Jobs</h1>
         <p className="jobs-subtitle">
-          <span className="interest-count">248 jobs</span> match your interests
+          <span className="interest-count">{matchCount} jobs</span> match your profile
+          {hideLowFit && ` (${minFit}%+ fit)`}
           <button type="button" className="edit-interests" aria-label="Edit interests">
             ✎
           </button>
@@ -78,31 +104,71 @@ export function JobsPage() {
             </button>
           ))}
         </div>
-        <label className="sort-fit-toggle">
-          <input
-            type="checkbox"
-            checked={sortByFit}
-            onChange={(e) => setSortByFit(e.target.checked)}
-          />
-          Sort by fit
-        </label>
+        <div className="jobs-toggles">
+          <label className="sort-fit-toggle">
+            <input
+              type="checkbox"
+              checked={sortByFit}
+              onChange={(e) => setSortByFit(e.target.checked)}
+            />
+            Sort by fit
+          </label>
+          <label className="sort-fit-toggle">
+            <input
+              type="checkbox"
+              checked={hideLowFit}
+              onChange={(e) => setHideLowFit(e.target.checked)}
+            />
+            Hide low-fit jobs
+          </label>
+          {hideLowFit && (
+            <label className="min-fit-slider">
+              Min fit: {minFit}%
+              <input
+                type="range"
+                min={40}
+                max={90}
+                step={5}
+                value={minFit}
+                onChange={(e) => setMinFit(Number(e.target.value))}
+              />
+            </label>
+          )}
+        </div>
       </div>
 
       <div className="jobs-split">
         <div className="jobs-list-panel">
-          {filtered.map(({ job, fit }) => (
-            <JobCard
-              key={job.id}
-              job={job}
-              fit={fit}
-              selected={selected?.job.id === job.id}
-              onClick={() => setSelectedId(job.id)}
-            />
-          ))}
+          {filtered.length === 0 ? (
+            <div className="jobs-empty-list">
+              No jobs meet your fit threshold. Lower the min fit % or turn off &quot;Hide
+              low-fit jobs&quot;.
+            </div>
+          ) : (
+            filtered.map(({ job, fit, whySeeing }) => {
+              const app = applications.find((a) => a.jobId === job.id);
+              return (
+                <JobCard
+                  key={job.id}
+                  job={job}
+                  fit={fit}
+                  whySeeing={whySeeing}
+                  selected={selected?.job.id === job.id}
+                  applicationStatus={app ? STATUS_LABELS[app.status] : undefined}
+                  onClick={() => setSelectedId(job.id)}
+                />
+              );
+            })
+          )}
         </div>
         <div className="jobs-detail-panel">
           {selected ? (
-            <JobDetail job={selected.job} fit={selected.fit} />
+            <JobDetail
+              job={selected.job}
+              fit={selected.fit}
+              whySeeing={selected.whySeeing}
+              duplicateWarning={selected.duplicateWarning}
+            />
           ) : (
             <div className="jobs-empty">Select a job to view details</div>
           )}

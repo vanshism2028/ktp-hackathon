@@ -105,6 +105,13 @@
   font-weight: 600;
 }
 
+.jobs-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
 .sort-fit-toggle {
   font-size: 13px;
   font-weight: 500;
@@ -113,7 +120,27 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  margin-left: auto;
+}
+
+.min-fit-slider {
+  font-size: 13px;
+  font-weight: 500;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.min-fit-slider input[type="range"] {
+  width: 120px;
+}
+
+.jobs-empty-list {
+  padding: 24px 20px;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
 }
 
 .jobs-split {

@@ -1,16 +1,29 @@
 import type { Job } from "../data/jobs";
 import type { FitResult } from "../utils/fitScore";
+import { formatDeadlineLabel, deadlineUrgency } from "../utils/deadline";
+import { getEmployerColor } from "../utils/employerStyle";
 import { FitScore } from "./FitScore";
 import "./JobCard.css";
 
 interface JobCardProps {
   job: Job;
   fit: FitResult;
+  whySeeing: string;
   selected: boolean;
+  applicationStatus?: string;
   onClick: () => void;
 }
 
-export function JobCard({ job, fit, selected, onClick }: JobCardProps) {
+export function JobCard({
+  job,
+  fit,
+  whySeeing,
+  selected,
+  applicationStatus,
+  onClick,
+}: JobCardProps) {
+  const urgency = deadlineUrgency(job.applicationDeadline);
+
   return (
     <button
       type="button"
@@ -20,16 +33,7 @@ export function JobCard({ job, fit, selected, onClick }: JobCardProps) {
       <div className="job-card-main">
         <div
           className="employer-logo"
-          style={{
-            background:
-              job.employer === "Stripe"
-                ? "#635bff"
-                : job.employer === "Notion"
-                  ? "#000"
-                  : job.employer === "OpenAI"
-                    ? "#10a37f"
-                    : "#6490f2",
-          }}
+          style={{ background: getEmployerColor(job.employer) }}
         >
           {job.employerLogo}
         </div>
@@ -37,16 +41,20 @@ export function JobCard({ job, fit, selected, onClick }: JobCardProps) {
           <div className="job-card-top">
             <h3 className="job-title">{job.title}</h3>
             {job.promoted && <span className="promoted-tag">Promoted</span>}
+            {applicationStatus && (
+              <span className="app-status-tag">{applicationStatus}</span>
+            )}
           </div>
           <p className="employer-name">{job.employer}</p>
-          <div className="job-meta">
-            <span>{job.location}</span>
-            <span className="meta-dot">·</span>
-            <span>{job.jobType}</span>
-            <span className="meta-dot">·</span>
-            <span>{job.workMode}</span>
+          <div className="glance-chips">
+            {job.salary && <span className="glance-chip">{job.salary}</span>}
+            <span className="glance-chip">{job.workMode}</span>
+            <span className="glance-chip">{job.jobType}</span>
+            <span className={`glance-chip glance-chip--deadline glance-chip--${urgency}`}>
+              {formatDeadlineLabel(job.applicationDeadline)}
+            </span>
           </div>
-          {job.salary && <p className="job-salary">{job.salary}</p>}
+          <p className="why-seeing">{whySeeing}</p>
           <p className="job-posted">{job.postedAgo}</p>
         </div>
         <FitScore fit={fit} variant="compact" />

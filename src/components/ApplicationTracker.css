@@ -1,0 +1,159 @@
+.tracker-page {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 28px 40px;
+  background: #fff;
+}
+
+.tracker-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.tracker-subtitle {
+  color: #555;
+  font-size: 14px;
+  margin: 0 0 24px;
+}
+
+.tracker-pipeline {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.pipeline-step {
+  flex: 1;
+  min-width: 100px;
+  background: #f7fce8;
+  border: 1px solid #e5f0c8;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+
+.pipeline-count {
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.pipeline-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.tracker-section h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+.tracker-section {
+  margin-bottom: 28px;
+}
+
+.tracker-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tracker-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.tracker-card .employer-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tracker-card-body {
+  flex: 1;
+}
+
+.tracker-card-body h3 {
+  margin: 0 0 2px;
+  font-size: 15px;
+}
+
+.tracker-card-body p {
+  margin: 0;
+  font-size: 13px;
+  color: #555;
+}
+
+.tracker-meta {
+  margin-top: 6px !important;
+  font-size: 12px !important;
+  color: #888 !important;
+}
+
+.tracker-next {
+  margin-top: 8px !important;
+  font-size: 12px !important;
+  color: #333 !important;
+}
+
+.tracker-status {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.tracker-status--saved {
+  background: #f0f0f0;
+  color: #555;
+}
+
+.tracker-status--applied {
+  background: #e8f0fe;
+  color: #3d5a99;
+}
+
+.tracker-status--under_review {
+  background: #fff8e8;
+  color: #8a6500;
+}
+
+.tracker-status--interview {
+  background: #e8f8ef;
+  color: #1a7f4b;
+}
+
+.tracker-status--offer {
+  background: #d3fb52;
+  color: #1a1a1a;
+}
+
+.tracker-status--rejected {
+  background: #fde8e8;
+  color: #b33;
+}
+
+.tracker-empty {
+  color: #999;
+  font-size: 15px;
+}
